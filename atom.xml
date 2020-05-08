@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kylinlee.github.io/"/>
-  <updated>2020-05-05T02:01:37.347Z</updated>
+  <updated>2020-05-08T15:06:28.048Z</updated>
   <id>https://kylinlee.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JavaScrip实现计数器的多种方法</title>
+    <link href="https://kylinlee.github.io/2020/05/08/JavaScrip%E5%AE%9E%E7%8E%B0%E8%AE%A1%E6%95%B0%E5%99%A8%E7%9A%84%E5%A4%9A%E7%A7%8D%E6%96%B9%E6%B3%95/"/>
+    <id>https://kylinlee.github.io/2020/05/08/JavaScrip%E5%AE%9E%E7%8E%B0%E8%AE%A1%E6%95%B0%E5%99%A8%E7%9A%84%E5%A4%9A%E7%A7%8D%E6%96%B9%E6%B3%95/</id>
+    <published>2020-05-08T14:17:19.000Z</published>
+    <updated>2020-05-08T15:06:28.048Z</updated>
+    
+    <content type="html"><![CDATA[<p>总结一下 JavaScript 实现计数器的几种方法，对于写出高性能代码有一定的帮助，同时也包含一些蛇皮操作。</p><a id="more"></a><h1 id="普通写法"><a href="#普通写法" class="headerlink" title="普通写法"></a>普通写法</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> counter = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">countUp</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> ++counter;</span><br><span class="line">&#125;</span><br><span class="line">countUp();</span><br></pre></td></tr></table></figure><p>创建一个全局变量<code>counter</code>，每次调用<code>countUp()</code>都会使<code>counter</code>的值＋ 1，但是我们都知道无论是用何种语言写代码，都应该尽量使用少的全局变量，于是就有了下面这种经典写法。</p><h1 id="使用闭包"><a href="#使用闭包" class="headerlink" title="使用闭包"></a>使用闭包</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> countUp = <span class="function">(<span class="params">(</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> ++count;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;)();</span><br><span class="line">countUp();</span><br></pre></td></tr></table></figure><p>这种写法能使用更少的全局变量，但闭包终归有闭包的缺点，它不会被垃圾回收机制处理，同时也不能像上一种写法那样重置<code>counter</code>，于是就有了下面这种写法。</p><h1 id="使用函数属性"><a href="#使用函数属性" class="headerlink" title="使用函数属性"></a>使用函数属性</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> countUp = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> countUp.count++;</span><br><span class="line">&#125;;</span><br><span class="line">countUp.counter = <span class="number">1</span>;</span><br><span class="line">countUp();</span><br></pre></td></tr></table></figure><p>在 JavaScript 中函数是一种特殊的对象，既然是对象，那他自然也有属性，我们定义一个函数来操作它的<code>counter</code>属性。这种写法很好的解决了上面三个问题：</p><ol><li>解决闭包的内存占用</li><li>可以重置<code>counter</code></li><li>尽量少的全局变量</li></ol><p>如果你会<code>TypeScript</code>，那么通过下面这个例子你能更好的理解函数属性。</p><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> CountUp &#123;</span><br><span class="line">  (): <span class="built_in">number</span>;</span><br><span class="line">  counter: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>上面这段代码定义了一个函数接口，这个函数拥有 0 个参数，返回值是一个<code>number</code>类型的值，并且有<code>counter</code>属性。</p><p>让我们看看最后一种写法，这种写法没有任何优势，甚至是大材小用的写法。</p><h1 id="Generator"><a href="#Generator" class="headerlink" title="Generator"></a>Generator</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> counter = (<span class="function"><span class="keyword">function</span>* <span class="title">Counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    count++;</span><br><span class="line">    <span class="keyword">yield</span> <span class="built_in">console</span>.log(count);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">countUp</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> counter.next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在这里，我们使用了一个无限迭代器来实现，通过使用<code>counter.next()</code>来手动使迭代器迭代，个人认为这种写法比使用闭包的开销还要大，用作计数器实在是大材小用了。迭代器在 ES6 之前就被实现了，在 ES6 中才正式成为规范，它在 JavaScript 的作用通常是用来构建异步函数（async/await）。</p><p>虽然最后这种写法没有什么实质性的作用，但对于理解迭代器还是有帮助的，另外，有些厂笔试就喜欢出这种花里胡哨的题。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;总结一下 JavaScript 实现计数器的几种方法，对于写出高性能代码有一定的帮助，同时也包含一些蛇皮操作。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Code" scheme="https://kylinlee.github.io/categories/Code/"/>
+    
+    
+      <category term="JavaScript" scheme="https://kylinlee.github.io/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>简单易懂讲闭包</title>
@@ -103,31 +126,6 @@
     
     
       <category term="Life" scheme="https://kylinlee.github.io/tags/Life/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>我们把爱情想复杂了</title>
-    <link href="https://kylinlee.github.io/2020/03/20/%E6%88%91%E4%BB%AC%E6%8A%8A%E7%88%B1%E6%83%85%E6%83%B3%E5%A4%8D%E6%9D%82%E4%BA%86/"/>
-    <id>https://kylinlee.github.io/2020/03/20/%E6%88%91%E4%BB%AC%E6%8A%8A%E7%88%B1%E6%83%85%E6%83%B3%E5%A4%8D%E6%9D%82%E4%BA%86/</id>
-    <published>2020-03-20T04:41:12.000Z</published>
-    <updated>2020-05-02T02:24:06.464Z</updated>
-    
-    <content type="html"><![CDATA[<p>有时候是我们把爱情想复杂了。</p><a id="more"></a><p>有时候是我们把爱情想复杂了。</p><p>在一段未知的感情面前，我们表现得过于谨慎。</p><p>纠结过很多东西，也在心里计算着自己在感情中的得失。</p><p>等我们确认无误转身想接受时，却发现那个人已经离开，去寻找他自己的幸福。</p><p>什么是爱情？我也很难说清楚。或许就是你看着对方的眼睛，能让你心跳加速；</p><p>能将自己身上那些小秘密，毫无保留的说给她听；不论什么时候，都能在对方的身上找到吸引你的点。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;有时候是我们把爱情想复杂了。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Life" scheme="https://kylinlee.github.io/categories/Life/"/>
-    
-      <category term="Love" scheme="https://kylinlee.github.io/categories/Life/Love/"/>
-    
-    
-      <category term="Love" scheme="https://kylinlee.github.io/tags/Love/"/>
     
   </entry>
   
