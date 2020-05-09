@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://kylinlee.github.io/"/>
-  <updated>2020-05-08T15:06:28.048Z</updated>
+  <updated>2020-05-09T04:38:49.365Z</updated>
   <id>https://kylinlee.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JavaScript快速拷贝数组的几种方法</title>
+    <link href="https://kylinlee.github.io/2020/05/09/JavaScript%E5%BF%AB%E9%80%9F%E6%8B%B7%E8%B4%9D%E6%95%B0%E7%BB%84%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/"/>
+    <id>https://kylinlee.github.io/2020/05/09/JavaScript%E5%BF%AB%E9%80%9F%E6%8B%B7%E8%B4%9D%E6%95%B0%E7%BB%84%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/</id>
+    <published>2020-05-09T02:50:43.000Z</published>
+    <updated>2020-05-09T04:38:49.365Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文总结快速拷贝数组的几种方法（个人认为总结都很无聊），文章旨(chun)在(shu)总(wu)结(liao)，对于日常编码，只需挑选一种写法即可，通过本文，你将对 JavaScript 数组及 ES6 方法有更多的了解。</p><a id="more"></a><p>为了不重复写代码，所有例子都是以下面这个环境为基础。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> exampleArr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br></pre></td></tr></table></figure><h1 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h1><p>还是写一些基础的<code>for</code>循环吧</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> length = exampleArr.length;</span><br><span class="line"><span class="keyword">const</span> newArr = [];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">  newArr.push(exampleArr[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>使用<code>forEach()</code></p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> newArr = [];</span><br><span class="line">exampleArr.forEach(<span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">  newArr.push(value);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p>如果面试官问你如何拷贝一个数组，你只会<code>for</code>循环，那估计你是凉凉了。</p><h1 id="Array-prototype-map"><a href="#Array-prototype-map" class="headerlink" title="Array.prototype.map()"></a><code>Array.prototype.map()</code></h1><p><code>map()</code>方法建一个新数组，其结果是该数组中的每个元素都调用一次提供的函数后的返回值。<br>这种方法和<code>forEach()</code>相差无几，都是通过回调函数来为新数组赋值。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> newArr = exampleArr.map(<span class="function">(<span class="params">value</span>) =&gt;</span> value);</span><br></pre></td></tr></table></figure><h1 id="Array-prototype-concat"><a href="#Array-prototype-concat" class="headerlink" title="Array.prototype.concat()"></a><code>Array.prototype.concat()</code></h1><p><code>concat()</code>方法用于合并两个或多个数组，并返回一个新数组，参数可以是 0 个或多个数组。<br>当有 0 个参数的时候显然会返回一个拷贝数组：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> newArr = exampleArr.concat();</span><br></pre></td></tr></table></figure><h1 id="Array-prototype-slice"><a href="#Array-prototype-slice" class="headerlink" title="Array.prototype.slice()"></a><code>Array.prototype.slice()</code></h1><p><code>slice()</code>方法实现了数组的浅拷贝，就是说当拷贝数组里的对象时只会保留引用。<br>它有两个可选索引参数，由于确定从何处开始拷贝，何处停止拷贝，如果省略参数即拷贝整个数组。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> newArr = exampleArr.slice();</span><br></pre></td></tr></table></figure><p>还有一个和<code>slice()</code>方法类似的<code>copyWithin()</code>方法，他们都是浅拷贝，但<code>copyWithin()</code>浅复制数组的一部分到同一数组中的另一个位置，并返回它，不会改变原数组的长度。说的不是很明白？举个例子：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> array1 = [<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>, <span class="string">"d"</span>, <span class="string">"e"</span>];</span><br><span class="line">array1.copyWithin(<span class="number">0</span>, <span class="number">3</span>, <span class="number">4</span>);</span><br></pre></td></tr></table></figure><p>它的第一个参数是开始替换的索引位置，后面两个可选参数分别表示从何处开始复制，在何处结束复制，如果省略即复制整个数组。上面这个例子表示复制索引[3,4)的值(左闭右开)，然后将每个值从第 0 个索引开始覆写。最终值将是[“d”,”b”,”c”,”d”,”e”]。</p><p>所以下面这种写法并不是拷贝数组，因为它的拷贝值都赋值给自身了，<code>newArr</code>仅仅是保留了引用。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> newArr = exampleArr.copyWithin(<span class="number">0</span>);</span><br></pre></td></tr></table></figure><h1 id="数组解构-剩余参数"><a href="#数组解构-剩余参数" class="headerlink" title="数组解构+剩余参数"></a>数组解构+剩余参数</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [...newArr] = exampleArr;</span><br></pre></td></tr></table></figure><p>数组解构是 ES6 中的语法，通过数组解构可以将数组的值保存到解构对应的变量中，当不想一一赋值的时候可以使用剩余参数，将所有剩余的值保存在一个数组中，上面这段代码就是这种做法，将所有的值保存在<code>newArr</code>中。<br>注意是<strong>剩余参数</strong>，而不是扩展运算，二者很像，他们的区别在下一篇文章中讨论，欢迎关注。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文总结快速拷贝数组的几种方法（个人认为总结都很无聊），文章旨(chun)在(shu)总(wu)结(liao)，对于日常编码，只需挑选一种写法即可，通过本文，你将对 JavaScript 数组及 ES6 方法有更多的了解。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Code" scheme="https://kylinlee.github.io/categories/Code/"/>
+    
+    
+      <category term="JavaScript" scheme="https://kylinlee.github.io/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>JavaScrip实现计数器的多种方法</title>
@@ -101,29 +124,6 @@
     
     
       <category term="Recommend" scheme="https://kylinlee.github.io/tags/Recommend/"/>
-    
-      <category term="Life" scheme="https://kylinlee.github.io/tags/Life/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>我眼中的愚人节</title>
-    <link href="https://kylinlee.github.io/2020/04/01/%E6%88%91%E7%9C%BC%E4%B8%AD%E7%9A%84%E6%84%9A%E4%BA%BA%E8%8A%82/"/>
-    <id>https://kylinlee.github.io/2020/04/01/%E6%88%91%E7%9C%BC%E4%B8%AD%E7%9A%84%E6%84%9A%E4%BA%BA%E8%8A%82/</id>
-    <published>2020-04-01T14:03:48.000Z</published>
-    <updated>2020-05-02T02:06:15.664Z</updated>
-    
-    <content type="html"><![CDATA[<p>也许因为某些原因，这个愚人节在我眼里和往常并不一样，我觉的有必要记录一下这个特殊时期的愚人节。</p><a id="more"></a><h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>在写这篇文章之前，我搜索了两个问题，一个是在百度百科上搜索了愚人节的由来及习俗，其实相当无聊，可以理解为互相取乐，每个人在这一天都在以最夸张的手法获得最大的快乐。另一个是在知乎上搜索愚人节的意义，我选择了其中一条回答作为了我的答案，一个值得思考的答案。</p><h1 id="我身边的愚人节"><a href="#我身边的愚人节" class="headerlink" title="我身边的愚人节"></a>我身边的愚人节</h1><p>我没有过西方节日的习惯，不会去编一些愚人节的笑话，但是氛围在，还是会听到一些“愚弄别人”的消息。</p><h2 id="1-班群头像变了"><a href="#1-班群头像变了" class="headerlink" title="1.班群头像变了"></a>1.班群头像变了</h2><p>一大早醒来，发现班群头像变了，接着发来一条消息，大概内容是“学院被清华大学合并！”，稀里糊涂的我虽然没意识到今天是愚人节，但我还是相信自己的判断，这是不可能的。</p><h2 id="2-暑假没了"><a href="#2-暑假没了" class="headerlink" title="2.暑假没了"></a>2.暑假没了</h2><p>群里突然出现一条消息，标题写道：”教育部通知：全国一本高校取消暑假“，照西方节日习俗，那我算是今年的愚人了。</p><h2 id="3-FreeVOOC"><a href="#3-FreeVOOC" class="headerlink" title="3.FreeVOOC"></a>3.FreeVOOC</h2><p>这是一个拥有 VOOC 充电技术的手机厂商在愚人节当天推送的新浪微博，称 FreeVOOC 实现了 10m 范围内稳定功率无线充电。</p><h1 id="愚人节的意义"><a href="#愚人节的意义" class="headerlink" title="愚人节的意义"></a>愚人节的意义</h1><p>当我在知乎上寻求答案的时候，看到一句很值得思考的一句话，原话是：”一个节日具有什么意义不重要，重要的是你把它过成什么意义。“，这句话也许正好总结出了我的心里话，这大概就是我为什么觉得今年的愚人节不一样的原因吧。</p><h2 id="去年的愚人节"><a href="#去年的愚人节" class="headerlink" title="去年的愚人节"></a>去年的愚人节</h2><p>去年我在 QQ 空间发了一条博客，希望我们每个人都像愚人节这天一样快乐。</p><h2 id="我眼中的愚人节"><a href="#我眼中的愚人节" class="headerlink" title="我眼中的愚人节"></a>我眼中的愚人节</h2><p>这些”愚弄人“的消息，无非是两种，一种是表达愿景，将这些愿景写进去，在今天就好像实现了一样。一种是不想发生的事，当被人揭穿的时候，才证明这些事并没有发生，也算是给自己一些安慰，一些鼓励吧。在这一天，我听到的各种脑洞大开的事，并非是异想天开，其实是在内心深处，一直无法实现的愿景、一直无法面对的痛楚。</p><h1 id="落在最后"><a href="#落在最后" class="headerlink" title="落在最后"></a>落在最后</h1><p><strong>希望每个人都能像过愚人节这样，不管最终结果，大胆的去想，去做</strong></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;也许因为某些原因，这个愚人节在我眼里和往常并不一样，我觉的有必要记录一下这个特殊时期的愚人节。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Life" scheme="https://kylinlee.github.io/categories/Life/"/>
-    
     
       <category term="Life" scheme="https://kylinlee.github.io/tags/Life/"/>
     
