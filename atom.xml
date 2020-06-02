@@ -111,9 +111,9 @@
       <category term="Game" scheme="https://kylin.dev/categories/Life/Game/"/>
     
     
-      <category term="Other" scheme="https://kylin.dev/tags/Other/"/>
-    
       <category term="Recommend" scheme="https://kylin.dev/tags/Recommend/"/>
+    
+      <category term="Other" scheme="https://kylin.dev/tags/Other/"/>
     
       <category term="Life" scheme="https://kylin.dev/tags/Life/"/>
     
@@ -126,7 +126,7 @@
     <published>2020-05-09T07:10:49.000Z</published>
     <updated>2020-05-21T06:19:03.141Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>一款大名鼎鼎的 JS 插件，在 Hexo 上也能听歌了！</p><a id="more"></a><p>这是一款叫做<code>aplayer.js</code>的开源插件，通过简单的配置就能在页面中插入美观的音乐播放控件，<a href="https://aplayer.js.org/">插件地址</a>。<br>一起来看一看效果吧！</p><p><img src="https://i.loli.net/2020/05/09/UVZO3zNJqx7amB6.jpg" alt="netease-28315295.jpg"></p>    <div id="aplayer-MreOxost" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="28315295" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="false" data-listmaxheight="340px" data-preload="none" data-theme="#2e5666"    ></div><article class="message message-immersive is-warning"><div class="message-body"><p>本文作者：KylinLee</p><p>本文链接：<a href="https://kylin.dev/2020/05/09/在Hexo上分享歌曲">https://kylin.dev/2020/05/09/在Hexo上分享歌曲</a></p><p>版权声明：本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>进行许可。</p></div></article>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>一款大名鼎鼎的 JS 插件，在 Hexo 上也能听歌了！</p><a id="more"></a><p>这是一款叫做<code>aplayer.js</code>的开源插件，通过简单的配置就能在页面中插入美观的音乐播放控件，<a href="https://aplayer.js.org/">插件地址</a>。<br>一起来看一看效果吧！</p><p><img src="https://i.loli.net/2020/05/09/UVZO3zNJqx7amB6.jpg" alt="netease-28315295.jpg"></p>    <div id="aplayer-MopftpRw" class="aplayer aplayer-tag-marker meting-tag-marker"         data-id="28315295" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="true" data-mutex="false" data-listmaxheight="340px" data-preload="none" data-theme="#2e5666"    ></div><article class="message message-immersive is-warning"><div class="message-body"><p>本文作者：KylinLee</p><p>本文链接：<a href="https://kylin.dev/2020/05/09/在Hexo上分享歌曲">https://kylin.dev/2020/05/09/在Hexo上分享歌曲</a></p><p>版权声明：本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>进行许可。</p></div></article>]]></content>
     
     <summary type="html">
     
@@ -140,9 +140,9 @@
       <category term="Music" scheme="https://kylin.dev/categories/Life/Music/"/>
     
     
-      <category term="Other" scheme="https://kylin.dev/tags/Other/"/>
-    
       <category term="Recommend" scheme="https://kylin.dev/tags/Recommend/"/>
+    
+      <category term="Other" scheme="https://kylin.dev/tags/Other/"/>
     
   </entry>
   
